@@ -1,0 +1,14 @@
+FROM node:alpine
+# 이렇게 해주면 여기 디렉토리 에서 작업함 안주면 루트에서 작업함
+WORKDIR /usr/src/app
+
+# 여기서 이제 종속성 변경되면 해줌 변경 안되면 불필요한 npm install 안해도됨
+COPY package*.json ./
+
+RUN npm install 
+
+# 카피를 왜 이렇게 나눠놨냐? 소스코드만 변경되도 그 전 방식으로는 npm install을 또 다운 받음 그래서 둘이 구분함
+COPY . .
+
+
+CMD ["npm", "run","start"] 
